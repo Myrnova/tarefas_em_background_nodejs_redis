@@ -1,0 +1,36 @@
+{
+    // necessario no node versoes menores que 12 pra utilizar features do node 12
+    //toda vez que for executar um arquivo JS utilazara o sucrase-node de vez do interpretador padrao
+    "execMap":{
+        "js": "sucrase-node"
+    }
+}
+
+script: start pra economizar na hora de inicializar o nodemon
+
+dotenv é uma biblioteca que permite utilizar variaveis de ambientes
+arquivo .env
+variavel de ambiente é mais utilizados em variaveis imutaveis
+
+express é a lib utilizada para construir servidores
+
+app.use(express.json()); // serve para o server aceitar requisiçoes no formato json
+app.listen(process.env.PORT, () =>{ // mostra pro process qual a porta utilizada para o servidor (env.PORT vem da dotenv explicado anteriormente)
+    console.log(`Server running on the ${process.env.Port}`)
+})
+
+export default {
+    async store(req, res){ // cria um metodo que recebe o request(os dados que vem pra requisição) e response
+        const { name, email } = req.body; // body sao os dados que vieram da requisição
+        
+        const user = {
+            name,
+            email,
+            password: `123`
+        }
+        return res.json(user);
+    }
+}
+
+app.post('/users', UserController.store); // define em qual url vai ser usada para chamar o controller
+lembrar que o app.use tem que vir antes dos metodos do controller * tinha colocado depois e tava dando erro no teste
